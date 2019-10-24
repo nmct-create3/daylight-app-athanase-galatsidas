@@ -2,16 +2,35 @@
 #FONTS
 \*------------------------------------*/
 
+@font-face {
+    font-family: 'WorkSans';
+    font-weight: 400;
+    src: url('../fonts/WorkSans-Regular.ttf');
+}
+
 /*------------------------------------*\
 #Variables
 \*------------------------------------*/
 
 :root {
     /* colors */
+    --global-color-dark: #0f3557;
+    --global-color-light: #cce7ff;
+
+    --color-front: var(--global-color-dark);
+    --color-back: var(--global-color-light);
 
     /* opacity */
+    --global-muted: 0.6;
 
     /* transitions */
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-front: var(--global-color-light);
+        --color-back: var(--global-color-dark);
+    }
 }
 
 /*------------------------------------*\
@@ -27,10 +46,12 @@
 html {
     font-size: 16px;
     line-height: 1.5;
-    font-family: Helvetica, arial, sans-serif;
+    font-family: 'WorkSans', Helvetica, arial, sans-serif;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: var(--color-back);
+    font-feature-settings: 'zero' 1;
 }
 
 *,
@@ -248,8 +269,22 @@ input::placeholder {
     Website main logo
 */
 
-.c-logo {
+.c-app {
+    width: 400px;
+    margin: auto;
+    padding-top: 32px;
 
+    color: var(--color-front);
+    fill: var(--color-front);
+}
+
+.c-app__summary {
+    font-size: 28px;
+}
+
+.c-logo {
+    font-size: 16px;
+    color: var(--color-front);
 }
 
 /*
@@ -259,11 +294,37 @@ input::placeholder {
 */
 
 .c-sun {
-
+    fill: var(--color-front);
+    height: 22px;
+    width: 22px;
+    margin-right: 8px;
 }
 
 .c-logo .c-sun {
+}
 
+.c-horizon__line {
+    border-top: solid 1px var(--color-front);
+}
+
+.c-horizon__sky-wrapper {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.c-horizon__sky {
+    position: relative;
+    height: 100%;
+}
+
+.c-horizon__sun {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
 }
 
 /*
@@ -286,6 +347,10 @@ input::placeholder {
     Utilities: Mute
     Mute with opacity
 */
+
+.u-muted {
+    opacity: var(--global-muted);
+}
 
 /*------------------------------------*\
 #STATES
@@ -324,18 +389,18 @@ input::placeholder {
         text-decoration: underline;
     }
     a[href]:after {
-        content: " (" attr(href) ")";
+        content: ' (' attr(href) ')';
     }
     abbr[title]:after {
-        content: " (" attr(title) ")";
+        content: ' (' attr(title) ')';
     }
     /*
     * Don't show links that are fragment identifiers,
     * or use the `javascript:` pseudo protocol
     */
-    a[href^="#"]:after,
-    a[href^="javascript:"]:after {
-        content: "";
+    a[href^='#']:after,
+    a[href^='javascript:']:after {
+        content: '';
     }
     pre {
         white-space: pre-wrap !important;
